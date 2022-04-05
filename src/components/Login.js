@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
 import { saveToken, savePlayer } from '../actions';
-// import md5 from 'crypto-js/md5'
 
 class Login extends Component {
   constructor() {
@@ -30,8 +29,6 @@ class Login extends Component {
 
   handleClick = async () => {
     const { email, name } = this.state;
-    // const emailData = md5(email).toString();
-    console.log(email, name)
     const { history, sendToken, sendPlayer } = this.props;
     const data = await fetchToken();
     await fetchTrivia(data.token);
@@ -47,6 +44,7 @@ class Login extends Component {
         <form>
           <input
             value={ name }
+            placeholder="Name"
             name="name"
             type="text"
             data-testid="input-player-name"
@@ -54,6 +52,7 @@ class Login extends Component {
           />
           <input
             value={ email }
+            placeholder="Email"
             name="email"
             type="email"
             data-testid="input-gravatar-email"

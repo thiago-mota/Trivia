@@ -11,15 +11,15 @@ const INITIAL_STATE = {
 };
 
 function playerReducer(state = INITIAL_STATE, action) {
-  const { gravatarEmail, name } = INITIAL_STATE.player;
   switch (action.type) {
   case SAVE_TOKEN:
     return { ...state, token: action.payload };
   case PLAYER_DATA:
-    return { ...state, player:{
-      gravatarEmail: action.email,
-      name: action.name,
-    }}
+    return { ...state,
+      player: {
+        gravatarEmail: action.email,
+        name: action.name,
+      } };
   default:
     return state;
   }
