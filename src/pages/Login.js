@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
 import { saveToken } from '../actions';
-import { Link } from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -65,7 +65,7 @@ class Login extends Component {
             Play
           </button>
         </form>
-        <Link to="/settings" data-testid="btn-settings" >Configuração</Link>
+        <Link to="/settings" data-testid="btn-settings">Configuração</Link>
       </div>
     );
   }
