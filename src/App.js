@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import logo from './trivia.png';
 import './App.css';
 import Login from './pages/Login';
+import TriviaGame from './pages/TriviaGame';
 
 export default class App extends Component {
   render() {
@@ -10,11 +11,10 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
-          <BrowserRouter>
-            <Switch>
-              <Route path="/" component={ Login } />
-            </Switch>
-          </BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={ Login } />
+            <Route path="/trivia" component={ TriviaGame } />
+          </Switch>
           <p>
             SUA VEZ
           </p>
