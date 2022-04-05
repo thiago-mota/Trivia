@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchTrivia, fetchToken } from '../services/FetchAPI';
+import { saveToken } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -20,6 +24,15 @@ class Login extends Component {
         ? this.setState({ isDisabled: false })
         : this.setState({ isDisabled: true })
     );
+  }
+
+  handleClick = async () => {
+    const { history, sendToken } = this.props;
+    // await dispatch(getToken());
+    const data = await fetchToken();
+    await fetchTrivia(data.token);
+    sendToken(data.token);
+    history.push('/trivia');
   }
 
   render() {
@@ -45,6 +58,7 @@ class Login extends Component {
           type="button"
           data-testid="btn-play"
           disabled={ isDisabled }
+          onClick={ this.handleClick }
         >
           Play
         </button>
@@ -53,4 +67,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  hystory: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  sendToken: (payload) => dispatch(saveToken(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
