@@ -3,7 +3,8 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
-import { saveToken } from '../actions';
+import { saveToken, savePlayer } from '../actions';
+// import md5 from 'crypto-js/md5'
 
 class Login extends Component {
   constructor() {
@@ -28,11 +29,14 @@ class Login extends Component {
   }
 
   handleClick = async () => {
-    const { history, sendToken } = this.props;
-    // await dispatch(getToken());
+    const { email, name } = this.state;
+    // const emailData = md5(email).toString();
+    console.log(email, name)
+    const { history, sendToken, sendPlayer } = this.props;
     const data = await fetchToken();
     await fetchTrivia(data.token);
     sendToken(data.token);
+    sendPlayer(email, name);
     history.push('/trivia');
   }
 
@@ -79,6 +83,7 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   sendToken: (payload) => dispatch(saveToken(payload)),
+  sendPlayer: (email, name) => dispatch(savePlayer(email, name)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
