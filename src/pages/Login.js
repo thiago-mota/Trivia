@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
 import { saveToken } from '../actions';
+import { Link } from 'react-router-dom'
 
 class Login extends Component {
   constructor() {
@@ -38,31 +39,34 @@ class Login extends Component {
   render() {
     const { name, email, isDisabled } = this.state;
     return (
-      <form>
-        <input
-          value={ name }
-          name="name"
-          type="text"
-          data-testid="input-player-name"
-          onChange={ this.handleChange }
-        />
-        <input
-          value={ email }
-          name="email"
-          type="email"
-          data-testid="input-gravatar-email"
-          onChange={ this.handleChange }
-        />
-        <button
-          id="btn-play"
-          type="button"
-          data-testid="btn-play"
-          disabled={ isDisabled }
-          onClick={ this.handleClick }
-        >
-          Play
-        </button>
-      </form>
+      <div>
+        <form>
+          <input
+            value={ name }
+            name="name"
+            type="text"
+            data-testid="input-player-name"
+            onChange={ this.handleChange }
+          />
+          <input
+            value={ email }
+            name="email"
+            type="email"
+            data-testid="input-gravatar-email"
+            onChange={ this.handleChange }
+          />
+          <button
+            id="btn-play"
+            type="button"
+            data-testid="btn-play"
+            disabled={ isDisabled }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
+        </form>
+        <Link to="/settings" data-testid="btn-settings" >Configuração</Link>
+      </div>
     );
   }
 }
