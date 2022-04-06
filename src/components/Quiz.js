@@ -7,7 +7,21 @@ class Quiz extends Component {
     super(props);
     this.state = {
       i: 0,
+      isCorrect: '',
+      isIncorrect: '',
     };
+  }
+
+  handleQuestionsClick = ({ target }) => {
+    const param = target.parentNode.children;
+    console.log(param[0]);
+    for (let i = 0; i < param.length; i += 1) {
+      if (param[i].className === 'correctAnswer') {
+        param[i].style.border = '3px solid rgb(6, 240, 15)';
+      } else {
+        param[i].style.border = '3px solid rgb(255, 0, 0)';
+      }
+    }
   }
 
   shuffleArray = (questions) => {
@@ -16,11 +30,15 @@ class Quiz extends Component {
     return (
       answers.sort(() => Math.random() - NUMBER).map((answer, i) => (
         <button
+          className={
+            answer === questions.correct_answer ? 'correctAnswer' : 'incorrectAnswer'
+          }
           key={ i }
           type="button"
           data-testid={
             answer === questions.correct_answer ? 'correct-answer' : `wrong-answer-${i}`
           }
+          onClick={ this.handleQuestionsClick }
         >
           {answer}
         </button>
