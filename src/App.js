@@ -13,9 +13,9 @@ export default class App extends Component {
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
           <Switch>
+            <Route exact path="/settings" component={ Settings } />
+            <Route exact path="/trivia" component={ TriviaGame } />
             <Route exact path="/" component={ Login } />
-            <Route path="/trivia" component={ TriviaGame } />
-            <Route path="/settings" component={ Settings } />
           </Switch>
           <p>
             SUA VEZ
