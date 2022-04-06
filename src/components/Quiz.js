@@ -1,36 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Quiz extends Component {
-  shuffleArray = (array) => {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      i: 0,
+    };
+  }
+
+  shuffleArray = (questions) => {
+    const NUMBER = 0.5;
+    const answers = [...questions.incorrect_answers, questions.correct_answer];
+    return (
+      answers.sort(() => Math.random() - NUMBER).map((answer, i) => (
+        <button
+          key={ i }
+          type="button"
+          data-testid={
+            answer === questions.correct_answer ? 'correct-answer' : `wrong-answer-${i}`
+          }
+        >
+          {answer}
+        </button>
+      ))
+    );
+  }
 
   render() {
     const { questions } = this.props;
-    // const answers = [...questions]
+    console.log(questions);
+    const { i } = this.state;
     return (
       <div>
-        {
-          questions.map((question, i) => {
-            const answers = [...question.incorrect_answers, question.correct_answer]
-            const deckAnswers = shuffleArray(answers);
-            <h3>{question.question}</h3>
-            deckAnswers.map((item) => <button type='button' value={item}/>);
-          }
-        } 
+        {questions && (
+          <>
+            <p data-testid="question-category">
+              {questions[i].category}
+            </p>
+            <p data-testid="question-text">
+              {questions[i].question}
+            </p>
+            <div data-testid="answer-options">{this.shuffleArray(questions[i])}</div>
+          </>
+        )}
       </div>
-    )
+    );
   }
 }
+
+Quiz.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   questions: state.quiz.results,
 });
-
 export default connect(mapStateToProps)(Quiz);
