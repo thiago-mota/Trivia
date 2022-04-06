@@ -16,7 +16,7 @@ function playerReducer(state = INITIAL_STATE, action) {
     return { ...state, token: action.payload };
   case PLAYER_DATA:
     return { ...state,
-      player: {
+      player: { ...state.player,
         gravatarEmail: action.email,
         name: action.name,
       } };
