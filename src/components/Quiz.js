@@ -7,8 +7,6 @@ class Quiz extends Component {
     super(props);
     this.state = {
       i: 0,
-      isCorrect: '',
-      isIncorrect: '',
     };
   }
 
