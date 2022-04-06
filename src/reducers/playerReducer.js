@@ -1,4 +1,4 @@
-import { SAVE_TOKEN, PLAYER_DATA } from '../actions';
+import { SAVE_TOKEN, PLAYER_DATA, SET_QUESTIONS } from '../actions';
 
 const INITIAL_STATE = {
   player: {
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     gravatarEmail: '',
   },
   token: '',
+  quiz: {},
 };
 
 function playerReducer(state = INITIAL_STATE, action) {
@@ -20,6 +21,8 @@ function playerReducer(state = INITIAL_STATE, action) {
         gravatarEmail: action.email,
         name: action.name,
       } };
+  case SET_QUESTIONS:
+    return { ...state, quiz: action.payload };
   default:
     return state;
   }

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
-import { saveToken, savePlayer } from '../actions';
+import { saveToken, savePlayer, setQuestions } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -29,11 +29,12 @@ class Login extends Component {
 
   handleClick = async () => {
     const { email, name } = this.state;
-    const { history, sendToken, sendPlayer } = this.props;
+    const { history, sendToken, sendPlayer, sendQuiz } = this.props;
     const data = await fetchToken();
-    await fetchTrivia(data.token);
+    const getQuiz = await fetchTrivia(data.token);
     sendToken(data.token);
     sendPlayer(email, name);
+    sendQuiz(getQuiz);
     history.push('/trivia');
   }
 
@@ -83,6 +84,7 @@ Login.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   sendToken: (payload) => dispatch(saveToken(payload)),
   sendPlayer: (email, name) => dispatch(savePlayer(email, name)),
+  sendQuiz: (payload) => dispatch(setQuestions(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
