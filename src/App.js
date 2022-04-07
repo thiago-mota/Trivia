@@ -19,9 +19,6 @@ export default class App extends Component {
             <Route exact path="/trivia" component={ TriviaGame } />
             <Route exact path="/" component={ Login } />
           </Switch>
-          <p>
-            SUA VEZ
-          </p>
         </header>
       </div>
     );
