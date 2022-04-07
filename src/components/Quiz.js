@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { saveScore } from '../actions';
 
 const MAX_LENGTH = 4;
 const SHOW_NEXT = 3;
@@ -13,6 +14,7 @@ class Quiz extends Component {
       isDisabled: false,
       timer: 30,
       btnNext: false,
+      points: 0,
     };
   }
 
@@ -21,8 +23,9 @@ class Quiz extends Component {
   }
 
   handleQuestionsClick = ({ target }) => {
+    const { sendScore, questions } = this.props;
     const param = target.parentNode.children;
-    console.log(param);
+    // const scoreCurr = 0;
     for (let i = 0; i < param.length; i += 1) {
       if (param[i].className === 'correctAnswer') {
         param[i].style.border = '3px solid rgb(6, 240, 15)';
@@ -31,6 +34,18 @@ class Quiz extends Component {
       }
     }
     this.setState({ btnNext: true });
+
+    const { timer, i } = this.state;
+    const TEN = 10;
+    const tres = 3;
+    const DIFFICULTY = (questions[i].difficulty === 'hard' && timer * tres)
+    || (questions[i].difficulty === 'medium' && timer * 2)
+    || (questions[i].difficulty === 'easy' && timer * 1);
+    if (target.className === 'correctAnswer') {
+      this.setState((prev) => ({
+        points: parseFloat(prev.points) + (parseFloat(TEN) + parseFloat(DIFFICULTY)),
+      }), () => sendScore(this.state));
+    }
   }
 
   shuffleArray = (questions) => {
@@ -114,18 +129,6 @@ class Quiz extends Component {
           !btnNext && i === MAX_LENGTH
             && <button type="button">Resultado</button>
         }
-        {/* {
-          i < MAX_LENGTH ? (
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.nextQuestion }
-            >
-              Next
-            </button>
-          )
-            : <button type="button">Resultado</button>
-        } */}
         <p>{ timer }</p>
       </div>
     );
@@ -139,4 +142,9 @@ Quiz.propTypes = {
 const mapStateToProps = (state) => ({
   questions: state.quiz.results,
 });
-export default connect(mapStateToProps)(Quiz);
+
+const mapDispatchToProps = (dispatch) => ({
+  sendScore: (payload) => dispatch(saveScore(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

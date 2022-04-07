@@ -1,4 +1,4 @@
-import { SAVE_TOKEN, PLAYER_DATA, SET_QUESTIONS } from '../actions';
+import { SAVE_TOKEN, PLAYER_DATA, SET_QUESTIONS, SET_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   player: {
@@ -23,6 +23,12 @@ function playerReducer(state = INITIAL_STATE, action) {
       } };
   case SET_QUESTIONS:
     return { ...state, quiz: action.payload };
+  case SET_SCORE:
+    return {
+      ...state,
+      player: { ...state.player,
+        score: action.points,
+      } };
   default:
     return state;
   }
