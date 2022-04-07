@@ -56,10 +56,10 @@
   }
 }
 
-/* .incorrectAnswer {
-  border: 3px solid rgb(255, 0, 0);
+/* .isIncorrect {
+  border: 3px solid red;
 }
 
-.correctAnswer {
+.isCorrect {
   border: 3px solid rgb(6, 240, 15);
 } */
