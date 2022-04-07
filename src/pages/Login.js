@@ -40,6 +40,7 @@ class Login extends Component {
 
   render() {
     const { name, email, isDisabled } = this.state;
+    // console.log(this.props);
     return (
       <div>
         <form>
