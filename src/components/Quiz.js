@@ -7,8 +7,8 @@ const MAX_LENGTH = 4;
 const SHOW_NEXT = 3;
 let STOP_TIMER = null;
 class Quiz extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       i: 0,
       isDisabled: false,
@@ -46,6 +46,11 @@ class Quiz extends Component {
         points: parseFloat(prev.points) + (parseFloat(TEN) + parseFloat(DIFFICULTY)),
       }), () => sendScore(this.state));
     }
+    // if (i === MAX_LENGTH) {
+    //   const { history } = this.props;
+    //   console.log(this.props);
+    //   history.push('/feedback');
+    // }
   }
 
   shuffleArray = (questions) => {
@@ -100,6 +105,7 @@ class Quiz extends Component {
 
   render() {
     const { questions } = this.props;
+    console.log(this.props);
     const { i, timer, btnNext } = this.state;
     return (
       <div>
