@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import HeaderFeedback from '../components/HeaderFeedback';
 
 class Feedback extends React.Component {
@@ -38,6 +39,7 @@ class Feedback extends React.Component {
             </tr>
           </tbody>
         </table>
+        <Link data-testid="btn-play-again" type="button" to="/">Play Again</Link>
       </>
     );
   }
