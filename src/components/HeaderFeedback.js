@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class HeaderFeedback extends Component {
   render() {
-    const { emailPlayer, namePlayer, score } = this.props;
+    const { emailPlayer, namePlayer, score, assertions } = this.props;
     return (
       <div>
         <img
@@ -14,7 +14,8 @@ class HeaderFeedback extends Component {
           alt="gravatar"
         />
         <h1 data-testid="header-player-name">{ namePlayer }</h1>
-        <span data-testid="header-score">{ score }</span>
+        <p data-testid="header-score">{ score }</p>
+        <span>{ `Assertions: ${assertions}` }</span>
       </div>
     );
   }
@@ -29,6 +30,7 @@ const mapStateToProps = (state) => ({
   emailPlayer: state.player.gravatarEmail,
   namePlayer: state.player.name,
   score: state.player.score,
+  assertions: state.player.assertions,
 });
 
 export default connect(mapStateToProps)(HeaderFeedback);

@@ -15,6 +15,7 @@ class Quiz extends Component {
       timer: 30,
       btnNext: false,
       points: 0,
+      assertions: 0,
     };
   }
 
@@ -44,6 +45,7 @@ class Quiz extends Component {
     if (target.className === 'correctAnswer') {
       this.setState((prev) => ({
         points: parseFloat(prev.points) + (parseFloat(TEN) + parseFloat(DIFFICULTY)),
+        assertions: prev.assertions + 1,
       }), () => sendScore(this.state));
     }
   }

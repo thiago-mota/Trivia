@@ -28,6 +28,7 @@ function playerReducer(state = INITIAL_STATE, action) {
       ...state,
       player: { ...state.player,
         score: action.points,
+        assertions: action.assertions,
       } };
   default:
     return state;
