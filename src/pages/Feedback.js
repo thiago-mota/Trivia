@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 import HeaderFeedback from '../components/HeaderFeedback';
 
 class Feedback extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      ranking: [],
+    };
+  }
+
   message = (assertions) => {
     if (assertions <= 2) {
       return 'Could be better...';
@@ -13,6 +20,20 @@ class Feedback extends React.Component {
     if (assertions > 2) {
       return 'Well Done!';
     }
+  }
+
+  sendResults = () => {
+    const { assertions, score, name, emailGravatar, history } = this.props;
+    const infoResults = { name, emailGravatar, assertions, score };
+    this.setState((prev) => ({
+      ranking: [...prev.ranking, infoResults],
+    }), () => this.sendLocalStorage());
+    history.push('/ranking');
+  }
+
+  sendLocalStorage = () => {
+    const { ranking } = this.state;
+    localStorage.setItem('infoPlayer', JSON.stringify(ranking));
   }
 
   render() {
@@ -24,7 +45,13 @@ class Feedback extends React.Component {
         <p data-testid="feedback-text">{ this.message(assertions) }</p>
         <p data-testid="feedback-total-score">{ score }</p>
         <p data-testid="feedback-total-question">{ assertions }</p>
-        <Link data-testid="btn-ranking" to="/ranking">Ranking</Link>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.sendResults }
+        >
+          Ranking
+        </button>
         <Link data-testid="btn-play-again" to="/">Play Again</Link>
       </>
     );
@@ -39,6 +66,7 @@ const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
   score: state.player.score,
   name: state.player.name,
+  emailGravatar: state.player.gravatarEmail,
 });
 
 export default connect(mapStateToProps)(Feedback);
