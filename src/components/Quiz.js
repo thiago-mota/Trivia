@@ -24,18 +24,18 @@ class Quiz extends Component {
 
   handleQuestionsClick = ({ target }) => {
     const { sendScore, questions } = this.props;
+    const { i } = this.state;
+    if (i < MAX_LENGTH) { this.setState({ btnNext: true }); }
     const param = target.parentNode.children;
-    // const scoreCurr = 0;
-    for (let i = 0; i < param.length; i += 1) {
-      if (param[i].className === 'correctAnswer') {
-        param[i].style.border = '3px solid rgb(6, 240, 15)';
+    for (let index = 0; index < param.length; index += 1) {
+      if (param[index].className === 'correctAnswer') {
+        param[index].style.border = '3px solid rgb(6, 240, 15)';
       } else {
-        param[i].style.border = '3px solid rgb(255, 0, 0)';
+        param[index].style.border = '3px solid rgb(255, 0, 0)';
       }
     }
-    this.setState({ btnNext: true });
 
-    const { timer, i } = this.state;
+    const { timer } = this.state;
     const TEN = 10;
     const tres = 3;
     const DIFFICULTY = (questions[i].difficulty === 'hard' && timer * tres)
@@ -46,11 +46,6 @@ class Quiz extends Component {
         points: parseFloat(prev.points) + (parseFloat(TEN) + parseFloat(DIFFICULTY)),
       }), () => sendScore(this.state));
     }
-    // if (i === MAX_LENGTH) {
-    //   const { history } = this.props;
-    //   console.log(this.props);
-    //   history.push('/feedback');
-    // }
   }
 
   shuffleArray = (questions) => {
@@ -79,12 +74,17 @@ class Quiz extends Component {
 
   nextQuestion = () => {
     const { i } = this.state;
+    const { history } = this.props;
     if (i < MAX_LENGTH) {
       this.setState({ i: i + 1, timer: 30 });
     }
 
     if (i === SHOW_NEXT) {
       this.setState({ btnNext: false });
+    }
+
+    if (i === MAX_LENGTH) {
+      history.push('/feedback');
     }
   }
 
@@ -105,7 +105,6 @@ class Quiz extends Component {
 
   render() {
     const { questions } = this.props;
-    console.log(this.props);
     const { i, timer, btnNext } = this.state;
     return (
       <div>
@@ -133,7 +132,14 @@ class Quiz extends Component {
         }
         {
           !btnNext && i === MAX_LENGTH
-            && <button type="button">Resultado</button>
+            && (
+              <button
+                data-testid="btn-next"
+                type="button"
+                onClick={ this.nextQuestion }
+              >
+                Resultado
+              </button>)
         }
         <p>{ timer }</p>
       </div>

@@ -8,7 +8,7 @@ class TriviaGame extends React.Component {
       <main>
         <Header />
         <p>Quiz</p>
-        <Quiz />
+        <Quiz { ...this.props } />
       </main>
     );
   }
