@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 
-class Header extends Component {
+class HeaderFeedback extends Component {
   render() {
     const { emailPlayer, namePlayer, score } = this.props;
     return (
@@ -14,13 +14,13 @@ class Header extends Component {
           alt="gravatar"
         />
         <h1 data-testid="header-player-name">{ namePlayer }</h1>
-        <span data-testid="header-score">{ `Points: ${score}` }</span>
+        <span data-testid="header-score">{ score }</span>
       </div>
     );
   }
 }
 
-Header.propTypes = {
+HeaderFeedback.propTypes = {
   emailPlayer: PropTypes.string,
   namePlayer: PropTypes.string,
 }.isRequired;
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(HeaderFeedback);
