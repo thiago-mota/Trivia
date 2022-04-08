@@ -21,6 +21,7 @@ class Feedback extends React.Component {
         <HeaderFeedback />
         <h1>Resultado</h1>
         <p data-testid="feedback-text">{ this.message(assertions) }</p>
+        <h3>Ranking</h3>
         <table>
           <thead>
             <tr>
