@@ -4,8 +4,18 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Ranking extends React.Component {
+  constructor() {
+    super();
+    this.state = { ranking: [] };
+  }
+
+  componentDidMount() {
+    const resultsLocalStorage = JSON.parse(localStorage.getItem('infoPlayer'));
+    this.setState({ ranking: resultsLocalStorage });
+  }
+
   render() {
-    const { assertions, score, name } = this.props;
+    const { ranking } = this.state;
     return (
       <main data-testid="ranking-title">
         <h3>Ranking</h3>
@@ -13,16 +23,21 @@ class Ranking extends React.Component {
           <thead>
             <tr>
               <td>Nome</td>
+              <td>Email</td>
               <td>Score</td>
               <td>Assertions</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{ name }</td>
-              <td data-testid="feedback-total-score">{ score }</td>
-              <td data-testid="feedback-total-question">{ assertions }</td>
-            </tr>
+            { ranking.length > 0
+            && ranking.map((item) => (
+              <tr key={ item.name }>
+                <td>{ item.name }</td>
+                <td data-testid="feedback-total-score">{ item.emailGravatar }</td>
+                <td data-testid="feedback-total-score">{ item.score }</td>
+                <td data-testid="feedback-total-question">{ item.assertions }</td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <Link data-testid="btn-go-home" to="/">Play Again</Link>
