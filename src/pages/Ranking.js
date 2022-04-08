@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Ranking extends React.Component {
@@ -24,6 +25,7 @@ class Ranking extends React.Component {
             </tr>
           </tbody>
         </table>
+        <Link data-testid="btn-go-home" to="/">Play Again</Link>
       </main>
     );
   }
