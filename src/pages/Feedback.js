@@ -5,13 +5,6 @@ import { Link } from 'react-router-dom';
 import HeaderFeedback from '../components/HeaderFeedback';
 
 class Feedback extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      ranking: [],
-    };
-  }
-
   message = (assertions) => {
     if (assertions <= 2) {
       return 'Could be better...';
@@ -23,17 +16,20 @@ class Feedback extends React.Component {
   }
 
   sendResults = () => {
-    const { assertions, score, name, emailGravatar, history } = this.props;
-    const infoResults = { name, emailGravatar, assertions, score };
-    this.setState((prev) => ({
-      ranking: [...prev.ranking, infoResults],
-    }), () => this.sendLocalStorage());
-    history.push('/ranking');
+    const { name, score, emailGravatar } = this.props;
+    const infoResults = { name, score, emailGravatar };
+    this.sendLocalStorage(infoResults);
   }
 
-  sendLocalStorage = () => {
-    const { ranking } = this.state;
-    localStorage.setItem('infoPlayer', JSON.stringify(ranking));
+  sendLocalStorage = (info) => {
+    const { history } = this.props;
+    if (!localStorage.getItem('ranking')) {
+      localStorage.setItem('ranking', JSON.stringify([]));
+    }
+    const getStorage = JSON.parse(localStorage.getItem('ranking'));
+    const totalResults = [...getStorage, info];
+    localStorage.setItem('ranking', JSON.stringify(totalResults));
+    history.push('/ranking');
   }
 
   render() {
