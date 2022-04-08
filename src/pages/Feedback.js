@@ -16,30 +16,16 @@ class Feedback extends React.Component {
   }
 
   render() {
-    const { assertions, score, name } = this.props;
+    const { assertions, score } = this.props;
     return (
       <>
         <HeaderFeedback />
         <h1>Resultado</h1>
         <p data-testid="feedback-text">{ this.message(assertions) }</p>
-        <h3>Ranking</h3>
-        <table>
-          <thead>
-            <tr>
-              <td>Nome</td>
-              <td>Score</td>
-              <td>Assertions</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{ name }</td>
-              <td data-testid="feedback-total-score">{ score }</td>
-              <td data-testid="feedback-total-question">{ assertions }</td>
-            </tr>
-          </tbody>
-        </table>
-        <Link data-testid="btn-play-again" type="button" to="/">Play Again</Link>
+        <p data-testid="feedback-total-score">{ score }</p>
+        <p data-testid="feedback-total-question">{ assertions }</p>
+        <Link data-testid="btn-ranking" to="/ranking">Ranking</Link>
+        <Link data-testid="btn-play-again" to="/">Play Again</Link>
       </>
     );
   }

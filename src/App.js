@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import TriviaGame from './pages/TriviaGame';
 import Settings from './pages/Settings';
 import Feedback from './pages/Feedback';
+import Ranking from './pages/Ranking';
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends Component {
           <img src={ logo } className="App-logo" alt="logo" />
           <Switch>
             <Route exact path="/settings" component={ Settings } />
+            <Route exact path="/ranking" component={ Ranking } />
             <Route exact path="/feedback" component={ Feedback } />
             <Route exact path="/trivia" component={ TriviaGame } />
             <Route exact path="/" component={ Login } />

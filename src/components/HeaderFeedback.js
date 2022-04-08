@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class HeaderFeedback extends Component {
   render() {
-    const { emailPlayer, namePlayer, score, assertions } = this.props;
+    const { emailPlayer, namePlayer, score } = this.props;
     return (
       <div>
         <img
@@ -15,7 +15,6 @@ class HeaderFeedback extends Component {
         />
         <h1 data-testid="header-player-name">{ namePlayer }</h1>
         <p data-testid="header-score">{ score }</p>
-        <span>{ `Assertions: ${assertions}` }</span>
       </div>
     );
   }
