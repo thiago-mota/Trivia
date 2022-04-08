@@ -1,17 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { defaultState } from '../actions';
 
 class Ranking extends React.Component {
   constructor() {
     super();
-    this.state = { ranking: [] };
+    this.state = { ranking: '' };
   }
 
   componentDidMount() {
-    const resultsLocalStorage = JSON.parse(localStorage.getItem('infoPlayer'));
-    this.setState({ ranking: resultsLocalStorage });
+    const resultsLocalStorage = JSON.parse(localStorage.getItem('ranking'));
+    this.setState({
+      ranking: resultsLocalStorage,
+    });
+  }
+
+  pageLogin = () => {
+    const { history, dispatch } = this.props;
+    dispatch(defaultState());
+    history.push('/');
   }
 
   render() {
@@ -23,24 +31,30 @@ class Ranking extends React.Component {
           <thead>
             <tr>
               <td>Nome</td>
-              <td>Email</td>
               <td>Score</td>
-              <td>Assertions</td>
+              <td>Picture</td>
             </tr>
           </thead>
           <tbody>
-            { ranking.length > 0
-            && ranking.map((item) => (
-              <tr key={ item.name }>
-                <td>{ item.name }</td>
-                <td data-testid="feedback-total-score">{ item.emailGravatar }</td>
-                <td data-testid="feedback-total-score">{ item.score }</td>
-                <td data-testid="feedback-total-question">{ item.assertions }</td>
-              </tr>
-            ))}
+            { !ranking ? <p>Sem Jogadores</p>
+              : (ranking.sort((a, b) => b.score - a.score).map((item, index) => (
+                <tr key={ item.name[index] }>
+                  <td data-testid={ `player-name-${index}` }>{ item.name }</td>
+                  <td data-testid={ `player-score-${index}` }>{ item.score }</td>
+                  <td>
+                    <img src={ `https://www.gravatar.com/avatar/${item.emailGravatar}` } alt={ `Foto de ${item.name}` } />
+                  </td>
+                </tr>
+              )))}
           </tbody>
         </table>
-        <Link data-testid="btn-go-home" to="/">Play Again</Link>
+        <button
+          data-testid="btn-go-home"
+          type="button"
+          onClick={ this.pageLogin }
+        >
+          Play Again
+        </button>
       </main>
     );
   }

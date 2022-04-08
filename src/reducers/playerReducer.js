@@ -1,4 +1,5 @@
-import { SAVE_TOKEN, PLAYER_DATA, SET_QUESTIONS, SET_SCORE } from '../actions';
+import { SAVE_TOKEN, PLAYER_DATA, SET_QUESTIONS,
+  SET_SCORE, DEFAULT_STATE } from '../actions';
 
 const INITIAL_STATE = {
   player: {
@@ -30,6 +31,18 @@ function playerReducer(state = INITIAL_STATE, action) {
         score: action.points,
         assertions: action.assertions,
       } };
+  case DEFAULT_STATE:
+    return {
+      ...state,
+      player: {
+        name: '',
+        assertions: 0,
+        score: 0,
+        gravatarEmail: '',
+      },
+      token: '',
+      quiz: {},
+    };
   default:
     return state;
   }

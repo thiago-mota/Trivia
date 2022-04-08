@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
 import { saveToken, savePlayer, setQuestions } from '../actions';
 
@@ -29,18 +30,18 @@ class Login extends Component {
 
   handleClick = async () => {
     const { email, name } = this.state;
+    const gravatarImage = md5(email).toString();
     const { history, sendToken, sendPlayer, sendQuiz } = this.props;
     const data = await fetchToken();
     const getQuiz = await fetchTrivia(data.token);
     sendToken(data.token);
-    sendPlayer(email, name);
+    sendPlayer(gravatarImage, name);
     sendQuiz(getQuiz);
     history.push('/trivia');
   }
 
   render() {
     const { name, email, isDisabled } = this.state;
-    // console.log(this.props);
     return (
       <div>
         <form>
