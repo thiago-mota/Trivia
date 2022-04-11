@@ -1,0 +1,41 @@
+.question {
+    display: flex;
+    width: 110%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #F72A55;
+    color: #FECE0A;
+}
+
+.answer {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 20px;
+    justify-content: center;
+}
+
+.correctAnswer {
+    width: 50%;
+    margin: 20px;
+    padding: 15px;
+    color: #F72A55;
+    background-color: #FECE0A;
+    font-weight: 700;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.incorrectAnswer {
+    width: 50%;
+    margin: 20px;
+    padding: 15px;
+    font-weight: 700;
+    color: #F72A55;
+    background-color: #FECE0A;
+    border-radius: 5px;
+    font-size: 16px;
+}

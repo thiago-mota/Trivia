@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { saveScore } from '../actions';
+import './css/style.css';
 
 const MAX_LENGTH = 4;
 const SHOW_NEXT = 3;
@@ -109,16 +110,24 @@ class Quiz extends Component {
     const { questions } = this.props;
     const { i, timer, btnNext } = this.state;
     return (
-      <div>
+      <div className='container'>
         {questions && (
           <>
             <p data-testid="question-category">
               {questions[i].category}
             </p>
-            <p data-testid="question-text">
+            <p 
+              className='question'
+              data-testid="question-text"
+            >
               {questions[i].question}
             </p>
-            <div data-testid="answer-options">{this.shuffleArray(questions[i])}</div>
+            <div 
+              className='answer'
+              data-testid="answer-options"
+            >
+              {this.shuffleArray(questions[i])}
+            </div>
           </>
         )}
         {
