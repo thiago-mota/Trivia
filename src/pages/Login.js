@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import { fetchTrivia, fetchToken } from '../services/FetchAPI';
 import { saveToken, savePlayer, setQuestions } from '../actions';
+import './css/style.css';
 
 class Login extends Component {
   constructor() {
@@ -43,9 +44,10 @@ class Login extends Component {
   render() {
     const { name, email, isDisabled } = this.state;
     return (
-      <div>
-        <form>
+      <div className='container'>
+        <form className='form-label'>
           <input
+            id='input-name'
             value={ name }
             placeholder="Name"
             name="name"
@@ -54,6 +56,7 @@ class Login extends Component {
             onChange={ this.handleChange }
           />
           <input
+            id='input-email'
             value={ email }
             placeholder="Email"
             name="email"
@@ -71,7 +74,13 @@ class Login extends Component {
             Play
           </button>
         </form>
-        <Link to="/settings" data-testid="btn-settings">Configuração</Link>
+        <Link 
+          to="/settings"
+          id='setting-button' 
+          data-testid="btn-settings"
+        >
+          Settings
+        </Link>
       </div>
     );
   }
